@@ -1,12 +1,13 @@
 <template>  <!-- vue 구성요소1 template - html -->
-  <div class="name-style">{{ name }}</div> <!-- script 요소 사용시 {{ 변수명 }} -->
+  <div class="name-style">{{ name }}</div>
+  <div>Hi</div>
 </template>
 
 <script>  // vue 구성요소2 script - js
-export default {  // 1. export default {} 선언
-  setup() {       // 2. setup() 선언
-    const name = 'test1'; // 3. 변수 선언 및 할당
-    return {      // 4. 변수 return
+export default {  
+  setup() {       
+    const name = 'test1'; 
+    return {      
       name,
     };
   }
