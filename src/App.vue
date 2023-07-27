@@ -1,26 +1,30 @@
 <template>  <!-- vue 구성요소1 template - html -->
   <div class="name-style">{{ name }}</div>
+  <div class="name-style">{{ reactiveName }}</div>
   <button class="btn btn-primary" @click="click">
     Click
   </button>
 </template>
 
 <script>  // vue 구성요소2 script - js
+import {ref, reactive} from 'vue';
+
 export default {  
   setup() {       
-    let name = 'test1';  // const는 값 수정 x -> let 변경
+    const name = ref('test1');  // ref: 기본 자료형, Object, Array
+    const reactiveName = reactive({ // reactive: Object, Array
+      id: 1
+    }); 
 
-    // const hi = (name) => {
-    //   return 'hello ' + name;
-    // }
     const click = () => {
-      name = 'test2';
-      console.log(name);
+      name.value = 'test2'; // ref는 data 접근시 .value 붙여야함
+      reactiveName.id = 2;  // reactive는 data 접근시 .요소 붙여야 함
     }
 
     return {      
       name,
       click,
+      reactiveName,
     };
   }
 }
