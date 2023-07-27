@@ -1,22 +1,26 @@
 <template>  <!-- vue 구성요소1 template - html -->
-  <div class="name-style">{{ hi('codemonkey') }}</div>
-  <div>{{ greeting }}</div>
+  <div class="name-style">{{ name }}</div>
+  <button class="btn btn-primary" @click="click">
+    Click
+  </button>
 </template>
 
 <script>  // vue 구성요소2 script - js
 export default {  
   setup() {       
-    const name = 'test1'; 
+    let name = 'test1';  // const는 값 수정 x -> let 변경
 
-    const hi = (name) => {
-      return 'hello ' + name;
+    // const hi = (name) => {
+    //   return 'hello ' + name;
+    // }
+    const click = () => {
+      name = 'test2';
+      console.log(name);
     }
 
-    const greeting = hi(name);
-
     return {      
-      hi,
-      greeting,
+      name,
+      click,
     };
   }
 }
