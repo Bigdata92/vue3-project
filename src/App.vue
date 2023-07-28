@@ -1,30 +1,30 @@
 <template>  <!-- vue 구성요소1 template - html -->
   <div class="name-style">{{ name }}</div>
-  <div class="name-style">{{ reactiveName }}</div>
+  <input :type="type" :value="name" :class="name"> <!-- 변수 name을 input value에 binding -->
   <button class="btn btn-primary" @click="click">
     Click
   </button>
 </template>
 
 <script>  // vue 구성요소2 script - js
-import {ref, reactive} from 'vue';
+import {ref} from 'vue';
 
 export default {  
   setup() {       
     const name = ref('test1');  // ref: 기본 자료형, Object, Array
-    const reactiveName = reactive({ // reactive: Object, Array
-      id: 1
-    }); 
+    const type = ref('number'); // input type 변수 가능
+    const nameClass = ref('');  // class로 변수 가능
 
     const click = () => {
       name.value = 'test2'; // ref는 data 접근시 .value 붙여야함
-      reactiveName.id = 2;  // reactive는 data 접근시 .요소 붙여야 함
+      type.value = 'text';
+      nameClass.value = 'name';
     }
 
     return {      
       name,
       click,
-      reactiveName,
+      type,
     };
   }
 }
