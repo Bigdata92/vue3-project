@@ -11,14 +11,9 @@
         </button>
       </div>
     </form>
-    <div class="card mt-2">
+    <div class="card mt-2" v-for="todo in todos" :key="todo.id">  <!-- for문 "object in arr" :key=objec.key  -->
       <div class="card-body p-2">
-        {{ todos[0].subject }}
-      </div>
-    </div>
-    <div class="card mt-2">
-      <div class="card-body p-2">
-        {{ todos[1].subject }}
+        {{ todo.subject }}
       </div>
     </div>
   </div>
