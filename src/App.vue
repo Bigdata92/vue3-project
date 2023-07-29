@@ -1,7 +1,4 @@
 <template>  <!-- vue 구성요소1 template - html -->
-  <div v-if="toggle">true</div> <!-- v-show : style을 이용해서 보여줌 / toggle 자주 할때 -->
-  <div v-else>false</div>       <!-- v-if : 조건 만족 o 만 랜더링 / 조건이 거의 바뀌지 x -->
-  <button @click="onToggle">toggle btn</button>
   <div class="container"> <!-- bootstrap class : 왼쪽, 오른쪽 띄어줌-->
     <h2>To-Do List</h2>
     <form action="" @submit.prevent="onSubmit"> <!-- @submit : 제출시 함수 사용 / .prevent(Modifier) : 새로고침x  -->
@@ -21,7 +18,10 @@
     </form>
     <div class="card mt-2" v-for="todo in todos" :key="todo.id">  <!-- for문 "object in arr" :key=objec.key  -->
       <div class="card-body p-2">
-        {{ todo.subject }}
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" v-model="todo.completed">
+          <label class="form-check-label">{{ todo.subject }}</label>
+        </div>
       </div>
     </div>
   </div>
@@ -32,15 +32,8 @@ import {ref} from 'vue';
 
 export default {  
   setup() {       
-    const toggle = ref(false);
-    const onToggle = () => {
-      toggle.value = !toggle.value
-    };
     const todo = ref('');
-    const todos = ref([
-      {id: 1, subject: '휴대폰 사기'},
-      {id: 2, subject: '장보기'},
-    ]);
+    const todos = ref([]);
     const hasError = ref(false);
 
     const onSubmit = () => {
@@ -50,9 +43,11 @@ export default {
         console.log(todo.value);
         todos.value.push({  // []에 object push
           id: Date.now(),  // unique
-          subject: todo.value
+          subject: todo.value,
+          completed: false,   // default : false
         });
         hasError.value = false;
+        todo.value = '';  // Click 버튼 클릭 후, 이전 검색어 제거
       }
     }
 
@@ -61,8 +56,6 @@ export default {
       todo,
       todos,
       onSubmit,
-      toggle,
-      onToggle,
       hasError,
 
     };
