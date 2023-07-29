@@ -20,7 +20,11 @@
       <div class="card-body p-2">
         <div class="form-check">
           <input type="checkbox" class="form-check-input" v-model="todo.completed">
-          <label class="form-check-label">{{ todo.subject }}</label>
+          <label class="form-check-label" 
+            :style="completed ? todoStyle : {}"
+            :class="{ todo: todo.completed }">  <!-- style .todo는 todo.completed 가 true 일때만 -->
+            {{ todo.subject }}  <!-- completed : true 일때만, style 적용되게 -->
+          </label>
         </div>
       </div>
     </div>
@@ -35,6 +39,10 @@ export default {
     const todo = ref('');
     const todos = ref([]);
     const hasError = ref(false);
+    const todoStyle = {
+      textDecoration: 'line-through', // text-decoration -> textDecoration 사용
+      color: 'gray',
+    }
 
     const onSubmit = () => {
       if (todo.value === '') {
@@ -57,6 +65,7 @@ export default {
       todos,
       onSubmit,
       hasError,
+      todoStyle,
 
     };
   }
@@ -64,7 +73,8 @@ export default {
 </script>
 
 <style> /* vue 구성요소3 style - css */
-.name-style {
-  color: red;
+.todo {
+  color: gray;
+  text-decoration: line-through;
 }
 </style>
