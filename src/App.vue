@@ -16,16 +16,19 @@
         This field cannot be empty
       </div>
     </form>
-    <div class="card mt-2" v-for="todo in todos" :key="todo.id">  <!-- for문 "object in arr" :key=objec.key  -->
-      <div class="card-body p-2">
-        <div class="form-check">
+    <div v-if="!todos.length">  <!-- todos 원소 개수가 0일때, 보여줌 -->
+      추가된 todo가 없습니다.
+    </div>
+    <div class="card mt-2" v-for="(todo, index) in todos" :key="todo.id">  <!-- for문 "object in arr" :key=objec.key  -->
+      <div class="card-body p-2 d-flex align-items-center">
+        <div class="form-check flex-grow-1">  <!-- 글자와 버튼이 양끝으로 배열되게 -->
           <input type="checkbox" class="form-check-input" v-model="todo.completed">
           <label class="form-check-label" 
-            :style="completed ? todoStyle : {}"
             :class="{ todo: todo.completed }">  <!-- style .todo는 todo.completed 가 true 일때만 -->
             {{ todo.subject }}  <!-- completed : true 일때만, style 적용되게 -->
           </label>
         </div>
+        <button class="btn btn-danger btn-sm" @click="deleteTodo(index)">Delete</button>
       </div>
     </div>
   </div>
@@ -39,6 +42,8 @@ export default {
     const todo = ref('');
     const todos = ref([]);
     const hasError = ref(false);
+
+
     const todoStyle = {
       textDecoration: 'line-through', // text-decoration -> textDecoration 사용
       color: 'gray',
@@ -59,6 +64,9 @@ export default {
       }
     }
 
+    const deleteTodo = (index) => { // todo 삭제
+      todos.value.splice(index, 1);  // array 에서 index 일치하는 놈, 1개만 제거
+    };
 
     return {      
       todo,
@@ -66,6 +74,7 @@ export default {
       onSubmit,
       hasError,
       todoStyle,
+      deleteTodo, 
 
     };
   }
