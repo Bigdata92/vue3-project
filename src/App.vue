@@ -1,7 +1,7 @@
 <template>  <!-- vue 구성요소1 template - html -->
   <div class="container"> <!-- bootstrap class : 왼쪽, 오른쪽 띄어줌-->
-    <h2>To-Do List</h2>
-    <TodoSimpleForm/>
+    <h2>To-Do List</h2>  <!-- TodoSimpleForm : 자식 component, App.vue : 부모 component -->
+    <TodoSimpleForm @add-todo="addTodo" /> <!-- 자식의 context.emit의 add-todo로 부터 data 받아, addTodo(부모) 실행 -->
     <div v-if="!todos.length">  <!-- todos 원소 개수가 0일때, 보여줌 -->
       추가된 todo가 없습니다.
     </div>
@@ -29,29 +29,15 @@ export default {
     TodoSimpleForm,
   },
   setup() {       
-    const todo = ref('');
     const todos = ref([]);
-    const hasError = ref(false);
 
+    const addTodo = (todo) => { // todo : 자식 componet에서 넘겨준 object
+      todos.value.push(todo);
+    }
 
     const todoStyle = {
       textDecoration: 'line-through', // text-decoration -> textDecoration 사용
       color: 'gray',
-    }
-
-    const onSubmit = () => {
-      if (todo.value === '') {
-        hasError.value = true;
-      } else {
-        console.log(todo.value);
-        todos.value.push({  // []에 object push
-          id: Date.now(),  // unique
-          subject: todo.value,
-          completed: false,   // default : false
-        });
-        hasError.value = false;
-        todo.value = '';  // Click 버튼 클릭 후, 이전 검색어 제거
-      }
     }
 
     const deleteTodo = (index) => { // todo 삭제
@@ -59,13 +45,10 @@ export default {
     };
 
     return {      
-      todo,
       todos,
-      onSubmit,
-      hasError,
       todoStyle,
       deleteTodo, 
-
+      addTodo,
     };
   }
 }
