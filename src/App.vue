@@ -5,7 +5,7 @@
     <div v-if="!todos.length">  <!-- todos 원소 개수가 0일때, 보여줌 -->
       추가된 todo가 없습니다.
     </div>
-    <TodoList :sendTodos="todos" /> <!-- 부모 -> 자식으로 sendTodos란 속성으로 todos 데이터 전송 -->
+    <TodoList :todos="todos" @toggle-todo="toggleTodo" /> <!-- 부모 -> 자식으로 sendTodos란 속성으로 todos 데이터 전송 -->
   </div>
 </template>
 
@@ -26,6 +26,10 @@ export default {
       todos.value.push(todo);
     }
 
+    const toggleTodo = (index) => {
+      todos.value[index].completed != todos.value[index].completed;
+    }
+
     const todoStyle = {
       textDecoration: 'line-through', // text-decoration -> textDecoration 사용
       color: 'gray',
@@ -40,6 +44,7 @@ export default {
       todoStyle,
       deleteTodo, 
       addTodo,
+      toggleTodo, 
     };
   }
 }

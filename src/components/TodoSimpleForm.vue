@@ -6,7 +6,7 @@
         </div>
         <div>
           <button class="btn btn-primary" type="submit">
-            Click
+            Add
           </button>
         </div>
       </div>
@@ -19,33 +19,32 @@
 
 import {ref} from 'vue';
 
-
 export default {
-    setup(props, context) { // 부모 component로 정보 전달시, context.emit 필요
-        const todo = ref('');
-        const hasError = ref(false);
+  setup(props, context) { // 부모 component로 정보 전달시, context.emit 필요
+      const todo = ref('');
+      const hasError = ref(false);
 
-        const onSubmit = () => {
-            if (todo.value === '') {
-                hasError.value = true;
-            } else { // todos는 부모 component에 o - 자식 component -> 부모로 해당 object 전달해야됨
-                context.emit('add-todo', {  // 1번째 인자 : event 이름, 2번째 인자 : data
-                    id: Date.now(),
-                    subject: todo.value,
-                    completed: false,
-                });
-                hasError.value = false;
-                todo.value = '';  // Click 버튼 클릭 후, 이전 검색어 제거
-            }
-        }
+      const onSubmit = () => {
+          if (todo.value === '') {
+              hasError.value = true;
+          } else { // todos는 부모 component에 o - 자식 component -> 부모로 해당 object 전달해야됨
+              context.emit('add-todo', {  // 1번째 인자 : event 이름, 2번째 인자 : data
+                  id: Date.now(),
+                  subject: todo.value,
+                  completed: false,
+              });
+              hasError.value = false;
+              todo.value = '';  // Click 버튼 클릭 후, 이전 검색어 제거
+          }
+      };
 
-        return {
-            todo,
-            hasError,
-            onSubmit,
+      return {
+          todo,
+          hasError,
+          onSubmit,
 
-        };
-    },
+      };
+  }
 }
 </script>
 <style lang="">
