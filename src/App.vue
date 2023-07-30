@@ -5,28 +5,19 @@
     <div v-if="!todos.length">  <!-- todos 원소 개수가 0일때, 보여줌 -->
       추가된 todo가 없습니다.
     </div>
-    <div class="card mt-2" v-for="(todo, index) in todos" :key="todo.id">  <!-- for문 "object in arr" :key=objec.key  -->
-      <div class="card-body p-2 d-flex align-items-center">
-        <div class="form-check flex-grow-1">  <!-- 글자와 버튼이 양끝으로 배열되게 -->
-          <input type="checkbox" class="form-check-input" v-model="todo.completed">
-          <label class="form-check-label" 
-            :class="{ todo: todo.completed }">  <!-- style .todo는 todo.completed 가 true 일때만 -->
-            {{ todo.subject }}  <!-- completed : true 일때만, style 적용되게 -->
-          </label>
-        </div>
-        <button class="btn btn-danger btn-sm" @click="deleteTodo(index)">Delete</button>
-      </div>
-    </div>
+    <TodoList :sendTodos="todos" /> <!-- 부모 -> 자식으로 sendTodos란 속성으로 todos 데이터 전송 -->
   </div>
 </template>
 
 <script>  // vue 구성요소2 script - js
 import {ref} from 'vue';
 import TodoSimpleForm from '@/components/TodoSimpleForm.vue'
+import TodoList from '@/components/TodoList.vue'
 
 export default {  
   components: {
     TodoSimpleForm,
+    TodoList,
   },
   setup() {       
     const todos = ref([]);
