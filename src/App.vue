@@ -5,7 +5,7 @@
     <div v-if="!todos.length">  <!-- todos 원소 개수가 0일때, 보여줌 -->
       추가된 todo가 없습니다.
     </div>
-    <TodoList :todos="todos" @toggle-todo="toggleTodo" /> <!-- 부모 -> 자식으로 sendTodos란 속성으로 todos 데이터 전송 -->
+    <TodoList :todos="todos" @toggle-todo="toggleTodo" @delete-todo="deleteTodo" /> <!-- 부모 -> 자식으로 sendTodos란 속성으로 todos 데이터 전송 -->
   </div>
 </template>
 
@@ -36,6 +36,7 @@ export default {
     }
 
     const deleteTodo = (index) => { // todo 삭제
+      console.log(index)
       todos.value.splice(index, 1);  // array 에서 index 일치하는 놈, 1개만 제거
     };
 

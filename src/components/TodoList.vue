@@ -19,12 +19,16 @@ export default {
     props: ['todos'],
     setup(props, context) {
         const toggleTodo = (index) => {
-            context.emit('toggle-todo', index); // 자식 -> 부모 index 전달
+          context.emit('toggle-todo', index); // 자식 -> 부모 index 전달
         };
 
+        const deleteTodo = (index) => {
+          context.emit('delete-todo', index);
+        };
 
         return {
             toggleTodo,
+            deleteTodo,
 
         }
     },
