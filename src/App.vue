@@ -36,7 +36,6 @@ export default {
     }
 
     const deleteTodo = (index) => { // todo 삭제
-      console.log(index)
       todos.value.splice(index, 1);  // array 에서 index 일치하는 놈, 1개만 제거
     };
 

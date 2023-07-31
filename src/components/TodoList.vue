@@ -17,13 +17,15 @@
 <script>
 export default {
     props: ['todos'],
-    setup(props, context) {
+    emits: ['toggleTodo', 'deleteTodo'],  // emit시, emits: []에 등록
+    setup(props, { emit }) {
+        // context.emit 중복 -> context 대신 { emit } 으로 사용 
         const toggleTodo = (index) => {
-          context.emit('toggle-todo', index); // 자식 -> 부모 index 전달
+          emit('toggle-todo', index); // 자식 -> 부모 index 전달
         };
 
         const deleteTodo = (index) => {
-          context.emit('delete-todo', index);
+          emit('delete-todo', index);
         };
 
         return {

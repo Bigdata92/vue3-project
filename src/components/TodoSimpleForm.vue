@@ -20,7 +20,8 @@
 import {ref} from 'vue';
 
 export default {
-  setup(props, context) { // 부모 component로 정보 전달시, context.emit 필요
+  emits: ['onSubmit'],
+  setup(props, { emit }) { // 부모 component로 정보 전달시, context.emit 필요
       const todo = ref('');
       const hasError = ref(false);
 
@@ -28,7 +29,7 @@ export default {
           if (todo.value === '') {
               hasError.value = true;
           } else { // todos는 부모 component에 o - 자식 component -> 부모로 해당 object 전달해야됨
-              context.emit('add-todo', {  // 1번째 인자 : event 이름, 2번째 인자 : data
+              emit('add-todo', {  // 1번째 인자 : event 이름, 2번째 인자 : data
                   id: Date.now(),
                   subject: todo.value,
                   completed: false,
