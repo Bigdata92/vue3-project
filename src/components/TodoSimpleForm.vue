@@ -20,7 +20,7 @@
 import {ref} from 'vue';
 
 export default {
-  emits: ['onSubmit'],
+  emits: ['add-todo'],
   setup(props, { emit }) { // 부모 component로 정보 전달시, context.emit 필요
       const todo = ref('');
       const hasError = ref(false);

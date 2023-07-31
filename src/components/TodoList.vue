@@ -17,7 +17,7 @@
 <script>
 export default {
     props: ['todos'],
-    emits: ['toggleTodo', 'deleteTodo'],  // emit시, emits: []에 등록
+    emits: ['toggle-todo', 'delete-todo'],  // emit시, emits: []에 등록
     setup(props, { emit }) {
         // context.emit 중복 -> context 대신 { emit } 으로 사용 
         const toggleTodo = (index) => {
